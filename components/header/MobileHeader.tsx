@@ -1,11 +1,9 @@
-// import Link from "next/link"
-import Logo from "../public/JRiso.svg"
-import MenuIcon from "../public/menuIcon.svg"
+import Logo from "@/public/JRiso.svg"
+import MenuIcon from "@/public/menuIcon.svg"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import {
@@ -16,6 +14,7 @@ import {
 } from "@/components/ui/accordion"
 import { mainMenu, type MenuComponent } from "@/components/menu/menu.config"
 import Link from "next/link"
+import { Button } from '@/components/ui/button';
 
 function MobileHeader() {
   return (
@@ -29,7 +28,7 @@ function MobileHeader() {
         <Sheet>
           <SheetTrigger>
             <div className="flex self-center">
-              <MenuIcon className="h-6.5 mt-5.5 cursor-pointer" />
+              <MenuIcon className="h-6.5 mt-4 cursor-pointer" />
             </div>
           </SheetTrigger>
           <SheetContent side="right">
@@ -38,6 +37,9 @@ function MobileHeader() {
             <div className="mt-4 px-4">
               <MenuList items={mainMenu} />
             </div>
+            <Button className="my-10">
+              FAÇA SEU ORÇAMENTO
+            </Button>
           </SheetContent>
         </Sheet>
       </nav>

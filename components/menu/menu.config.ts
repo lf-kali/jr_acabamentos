@@ -10,6 +10,11 @@ export const mainMenu: MenuComponent[] = [
         title: "Início",
         path: "/",
     },
+
+    {
+        title: "Nossos Produtos",
+        path: "/",
+    },
     {
         title: "Nossos Serviços",
         children: [
@@ -26,5 +31,5 @@ export const mainMenu: MenuComponent[] = [
     {
         title: "Últimos Projetos",
         path: "/",
-    }
+    },
 ];
