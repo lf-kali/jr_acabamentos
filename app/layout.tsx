@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { mont } from "./fonts/fonts";
 import "./globals.css";
+import MobileHeader from '../components/MobileHeader';
+import { Noto_Sans, Playfair_Display } from "next/font/google";
+import { cn } from "@/lib/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,9 +22,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn("h-full", "bg-background", "antialiased", mont.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <MobileHeader/>
+        {children}
+      </body>
     </html>
   );
 }
