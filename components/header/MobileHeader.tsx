@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import Logo from "@/public/JRiso.svg"
 import MenuIcon from "@/public/menuIcon.svg"
 import {
@@ -14,30 +17,31 @@ import {
 } from "@/components/ui/accordion"
 import { mainMenu, type MenuComponent } from "@/components/menu/menu.config"
 import Link from "next/link"
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button"
 
 function MobileHeader() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <header className="sticky h-20 w-full flex dark:bg-black not-dark:bg-white">
+    <header className="sticky top-0 z-50 h-20 w-full flex dark:bg-black/86 backdrop-blur-3xl not-dark:bg-white/86">
       <nav className="h-full flex flex-row items-center justify-between px-5 w-full">
         <div className="flex flex-row cursor-pointer items-end gap-1 text-foreground">
           <Logo className="h-14" />
           <h1 className="font-mont font-extrabold text-xl">Acabamentos</h1>
         </div>
 
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger>
             <div className="flex self-center">
               <MenuIcon className="h-6.5 mt-4 cursor-pointer" />
             </div>
           </SheetTrigger>
           <SheetContent side="right">
-            <SheetHeader>
-            </SheetHeader>
+            <SheetHeader></SheetHeader>
             <div className="mt-4 px-4">
-              <MenuList items={mainMenu} />
+              <MenuList items={mainMenu} onNavigate={() => setOpen(false)} />
             </div>
-            <Button className="my-10">
+            <Button className="my-10" onClick={() => setOpen(false)}>
               FAÇA SEU ORÇAMENTO
             </Button>
           </SheetContent>
@@ -47,7 +51,13 @@ function MobileHeader() {
   )
 }
 
-function MenuList({ items }: { items: MenuComponent[] }) {
+function MenuList({
+  items,
+  onNavigate,
+}: {
+  items: MenuComponent[]
+  onNavigate: () => void
+}) {
   return (
     <Accordion type="single" collapsible className="w-full">
       {items.map((item) =>
@@ -58,7 +68,9 @@ function MenuList({ items }: { items: MenuComponent[] }) {
               <ul className="flex flex-col gap-2 pl-4">
                 {item.children.map((child) => (
                   <li key={child.title}>
-                    <Link href={child.path ?? "#"}>{child.title}</Link>
+                    <Link href={child.path ?? "#"} onClick={onNavigate}>
+                      {child.title}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -66,7 +78,9 @@ function MenuList({ items }: { items: MenuComponent[] }) {
           </AccordionItem>
         ) : (
           <div key={item.title} className="py-3 border-b">
-            <Link href={item.path ?? "#"}>{item.title}</Link>
+            <Link href={item.path ?? "#"} onClick={onNavigate}>
+              {item.title}
+            </Link>
           </div>
         )
       )}

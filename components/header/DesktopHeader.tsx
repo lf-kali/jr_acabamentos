@@ -30,9 +30,9 @@ function DesktopHeader() {
                         <ul className="grid w-[300px] gap-2 p-4">
                         {item.children.map((child) => (
                             <li key={child.title}>
-                            <NavigationMenuLink>
-                                <Link href={child.path ?? "#"}>{child.title}</Link>
-                            </NavigationMenuLink>
+                                <NavigationMenuLink href={child.path ?? "#"}>
+                                    {child.title}
+                                </NavigationMenuLink>
                             </li>
                         ))}
                         </ul>
@@ -40,8 +40,8 @@ function DesktopHeader() {
                     </NavigationMenuItem>
                 ) : (
                     <NavigationMenuItem key={item.title}>
-                        <NavigationMenuLink>
-                            <Link href={item.path ?? "#"}>{item.title}</Link>
+                        <NavigationMenuLink href={item.path ?? "#"}>
+                            {item.title}
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 )

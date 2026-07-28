@@ -25,10 +25,10 @@ export default function RootLayout({
       className={cn("h-full", "bg-background", "antialiased", mont.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <div className="lg:hidden">
+        <div className="lg:hidden sticky top-0 z-50">
           <MobileHeader/>
         </div>
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex sticky top-0 z-50">
           <DesktopHeader/>
         </div>
         {children}
