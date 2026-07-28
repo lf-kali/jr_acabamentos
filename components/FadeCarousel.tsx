@@ -37,6 +37,8 @@ export function FadeCarousel({
   const dragStartX = useRef(0);
   const dragDeltaX = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const wheelLockRef = useRef(false);
+  const wheelResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const goTo = useCallback(
     (i: number) => setIndex((i + slides.length) % slides.length),
@@ -52,6 +54,46 @@ export function FadeCarousel({
     const id = setInterval(next, autoplayInterval);
     return () => clearInterval(id);
   }, [autoplay, autoplayInterval, isDragging, next, slides.length]);
+
+  // Scroll horizontal do touchpad troca de slide. Precisa ser um listener
+  // nativo com passive: false — o React trata onWheel/onTouch como passivo
+  // por padrão (por performance), então preventDefault() no JSX não teria
+  // efeito e a página rolaria na horizontal junto com o carrossel.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || slides.length <= 1) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // ignora gestos predominantemente verticais, pra não capturar o
+      // scroll normal da página
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+
+      e.preventDefault();
+      if (wheelLockRef.current) return;
+
+      const threshold = 30;
+      if (e.deltaX > threshold) next();
+      else if (e.deltaX < -threshold) prev();
+      else return;
+
+      // trava novos disparos até o gesto atual "esfriar" — um único
+      // movimento no touchpad gera dezenas de eventos wheel
+      wheelLockRef.current = true;
+      if (wheelResetTimeout.current) clearTimeout(wheelResetTimeout.current);
+      wheelResetTimeout.current = setTimeout(() => {
+        wheelLockRef.current = false;
+      }, 600);
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, [next, prev, slides.length]);
+
+  useEffect(() => {
+    return () => {
+      if (wheelResetTimeout.current) clearTimeout(wheelResetTimeout.current);
+    };
+  }, []);
 
   // Pointer Events cobrem mouse, touch e caneta com a mesma lógica —
   // não precisa de handlers separados para touch e clique de arraste.
