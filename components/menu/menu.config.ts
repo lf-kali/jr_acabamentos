@@ -13,11 +13,11 @@ export const mainMenu: MenuComponent[] = [
 
     {
         title: "Nossos Produtos",
-        path: "/",
+        path: "/produtos",
     },
     {
         title: "Nossos Serviços",
-        path: "/nossos-servicos"
+        path: "/servicos"
     },
     {
         title: "Últimos Projetos",

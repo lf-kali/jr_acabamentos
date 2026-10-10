@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { FadeCarousel } from '../components/FadeCarousel';
+import { ProductScrollList } from "@/components/product/ProductScrollList"
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center font-mont font-[700]">
+    <div className="flex flex-col overflow-x-hidden flex-1 items-center justify-center font-mont font-[700]">
       <FadeCarousel
         slides={[
           {
@@ -30,6 +31,8 @@ export default function Home() {
           },
         ]}
       />
+
+      <ProductScrollList className="p-4.5"/>
     </div>
   );
 }

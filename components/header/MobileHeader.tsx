@@ -23,7 +23,7 @@ function MobileHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 h-20 w-full flex dark:bg-black/86 backdrop-blur-3xl not-dark:bg-white/86">
+    <header className="sticky top-0 z-50 h-20 w-full flex dark:bg-black/86 backdrop-blur-2xl not-dark:bg-white/86">
       <nav className="h-full flex flex-row items-center justify-between px-5 w-full">
         <div className="flex flex-row cursor-pointer items-end gap-1 text-foreground">
           <Logo className="h-14" />

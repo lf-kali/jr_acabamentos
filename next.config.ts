@@ -14,8 +14,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.seuprodutonaweb.com.br", // troque pelo host real das suas imagens
+        hostname: "www.seuprodutonaweb.com.br",
       },
+      {
+        protocol: "https",
+        hostname: "http2.mlstatic.com"
+      }
     ],
   },
 };

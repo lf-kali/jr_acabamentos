@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 function DesktopHeader() {
   return (
     
-    <header className="sticky h-25 w-full flex dark:bg-black not-dark:bg-white">
+    <header className="sticky h-25 w-full flex backdrop-blur-2xl dark:bg-black/86 not-dark:bg-white/86">
       <nav className="h-full flex flex-row items-center justify-between px-5 w-full">
         <div className="flex flex-row cursor-pointer items-end mb-2 gap-1 text-foreground">
           <Logo className="h-16" />
